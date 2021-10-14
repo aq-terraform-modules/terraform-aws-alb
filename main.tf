@@ -1,16 +1,25 @@
 resource "aws_security_group" "lb_sg" {
   name        = "${var.name}_lb_sg"
   description = "Security Group for Load Balancer"
-
-  ingress = {
-      description = "Allow HTTP"
-      from_port   = 80
-      to_port     = 80
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-  }
 }
 
+resource "aws_security_group_rule" "http" {
+  type = "ingress"
+  from_port = 80
+  to_port = 80
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.lb_sg.id
+}
+
+resource "aws_security_group_rule" "https" {
+  type = "ingress"
+  from_port = 443
+  to_port = 443
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.lb_sg.id
+}
 
 resource "aws_lb" "core_lb" {
   name                       = "${var.name}_lb"
