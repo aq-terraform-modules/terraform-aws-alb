@@ -1,8 +1,3 @@
-resource "aws_security_group" "lb_sg" {
-  name        = "${var.name}-lb-sg"
-  description = "Security Group for Load Balancer"
-}
-
 resource "aws_lb" "core_lb" {
   name                       = "${var.name}-lb"
   internal                   = var.internal
