@@ -41,3 +41,7 @@ variable "security_groups" {
   type = list
   default = []
 }
+
+variable "vpc_id" {
+  description = "VPC ID for default target group"
+}
