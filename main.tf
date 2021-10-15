@@ -20,7 +20,7 @@ resource "aws_lb" "core_lb" {
 }
 
 resource "aws_lb_target_group" "default_target_group" {
-  name = "${var.name}-default-target-group"
+  name = "${var.name}-default"
   port = 80
   protocol = "HTTP"
   target_type = "ip"
