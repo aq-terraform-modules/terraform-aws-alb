@@ -35,3 +35,9 @@ variable "subnet_mapping" {
   type        = list(map(string))
   default     = []
 }
+
+variable "security_groups" {
+  description = "Security Group for the ALB"
+  type = list
+  default = []
+}

@@ -3,29 +3,11 @@ resource "aws_security_group" "lb_sg" {
   description = "Security Group for Load Balancer"
 }
 
-resource "aws_security_group_rule" "http" {
-  type = "ingress"
-  from_port = 80
-  to_port = 80
-  protocol = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.lb_sg.id
-}
-
-resource "aws_security_group_rule" "https" {
-  type = "ingress"
-  from_port = 443
-  to_port = 443
-  protocol = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.lb_sg.id
-}
-
 resource "aws_lb" "core_lb" {
   name                       = "${var.name}-lb"
   internal                   = var.internal
   load_balancer_type         = var.load_balancer_type
-  security_groups            = [aws_security_group.lb_sg.id]
+  security_groups            = var.security_groups
   subnets                    = var.subnets
   enable_deletion_protection = var.enable_deletion_protection
   ip_address_type            = var.ip_address_type
