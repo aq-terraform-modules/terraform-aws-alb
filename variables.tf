@@ -38,8 +38,8 @@ variable "subnet_mapping" {
 
 variable "security_groups" {
   description = "Security Group for the ALB"
-  type = list
-  default = []
+  type        = list(any)
+  default     = []
 }
 
 variable "vpc_id" {

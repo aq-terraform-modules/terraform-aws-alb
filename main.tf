@@ -1,5 +1,5 @@
 resource "aws_lb" "core_lb" {
-  name                       = "${var.name}"
+  name                       = var.name
   internal                   = var.internal
   load_balancer_type         = var.load_balancer_type
   security_groups            = var.security_groups
@@ -20,20 +20,20 @@ resource "aws_lb" "core_lb" {
 }
 
 resource "aws_lb_target_group" "default_target_group" {
-  name = "${var.name}-default"
-  port = 80
-  protocol = "HTTP"
+  name        = "${var.name}-default"
+  port        = 80
+  protocol    = "HTTP"
   target_type = "ip"
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_lb_listener" "HTTP" {
   load_balancer_arn = aws_lb.core_lb.arn
-  port = 80
-  protocol = "HTTP"
+  port              = 80
+  protocol          = "HTTP"
 
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.default_target_group.arn
   }
 }
